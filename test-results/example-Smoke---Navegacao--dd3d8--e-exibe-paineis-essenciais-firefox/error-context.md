@@ -13,12 +13,12 @@
     - generic [ref=e27]:
       - generic [ref=e29]: ♚
       - generic [ref=e30]:
-        - paragraph [ref=e31]: Black
+        - paragraph [ref=e31]: Pretas - Black
         - paragraph [ref=e32]: "Elo: 800"
     - generic [ref=e33]:
       - generic [ref=e35]: ♔
       - generic [ref=e36]:
-        - paragraph [ref=e37]: White
+        - paragraph [ref=e37]: Brancas - White
         - paragraph [ref=e38]: "Elo: 800"
   - generic [ref=e40]:
     - 'img "Estado: Neutro" [ref=e41]': 😐
@@ -57,5 +57,10 @@
     - button "Análise" [ref=e97]:
       - img [ref=e98]
       - text: Análise
-  - heading "Histórico de Lances" [level=3] [ref=e104]
+  - generic:
+    - heading "Histórico de Lances" [level=3] [ref=e104]
+    - generic [ref=e107]:
+      - generic [ref=e108]: "1."
+      - generic [ref=e109]: ...
+      - generic [ref=e110]: ...
 ```

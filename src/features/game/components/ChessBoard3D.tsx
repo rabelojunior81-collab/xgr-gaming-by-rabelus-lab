@@ -4,7 +4,8 @@ import { OrbitControls, Environment } from '@react-three/drei';
 import * as THREE from 'three';
 import { useGameStore } from '@game/store/gameStore';
 import { themes } from '@shared/data/themes';
-import { ChessPiece3D } from './ChessPiece3D';
+import { ProceduralPiece3D } from './ProceduralPiece3D';
+import type { PieceType } from '../engine/proceduralPieces';
 
 interface SquareProps {
   position: [number, number, number];
@@ -178,13 +179,28 @@ function Board({ fen, selectedSquare, legalMoves, theme, onSquareClick }: BoardP
         const x = fileIdx - 3.5;
         const z = rankIdx - 3.5;
         
+        // Mapear tipo do chess.js para tipo do sistema procedural
+        const pieceTypeMap: Record<string, PieceType> = {
+          'p': 'pawn',
+          'n': 'knight',
+          'b': 'bishop',
+          'r': 'rook',
+          'q': 'queen',
+          'k': 'king'
+        };
+        
+        const colorMap: Record<string, 'white' | 'black'> = {
+          'w': 'white',
+          'b': 'black'
+        };
+        
         return (
-          <ChessPiece3D
+          <ProceduralPiece3D
             key={piece.square}
-            type={piece.type}
-            color={piece.color}
+            piece={pieceTypeMap[piece.type] || 'pawn'}
+            color={colorMap[piece.color] || 'white'}
             position={[x, 0.3, z]}
-            theme={currentTheme.pieceStyle}
+            style="classic"
             isSelected={selectedSquare === piece.square}
             onClick={() => onSquareClick(piece.square)}
           />

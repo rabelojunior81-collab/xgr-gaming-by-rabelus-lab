@@ -71,7 +71,7 @@ export function GameControls() {
             <span className="text-lg">♚</span>
           </div>
           <div className="flex-1">
-            <p className="font-medium">{blackPlayer.name}</p>
+            <p className="font-medium"><span data-testid="player-black-label">Pretas</span> - {blackPlayer.name}</p>
             <p className="text-xs text-slate-400">Elo: {blackPlayer.elo}</p>
           </div>
           {isThinking && turn === 'b' && (
@@ -95,7 +95,7 @@ export function GameControls() {
             <span className="text-lg text-slate-900">♔</span>
           </div>
           <div className="flex-1">
-            <p className="font-medium text-white">{whitePlayer.name}</p>
+            <p className="font-medium text-white"><span data-testid="player-white-label">Brancas</span> - {whitePlayer.name}</p>
             <p className="text-xs text-slate-400">Elo: {whitePlayer.elo}</p>
           </div>
           {isThinking && turn === 'w' && (
@@ -241,13 +241,21 @@ function MoveHistory() {
   
   return (
     <div className="space-y-1">
-      {pairs.map((pair) => (
-        <div key={pair.num} className="flex gap-2 text-sm">
-          <span className="w-8 text-slate-500">{pair.num}.</span>
-          <span className="flex-1 text-slate-300">{pair.white}</span>
-          <span className="flex-1 text-slate-400">{pair.black}</span>
+      {pairs.length === 0 ? (
+        <div className="flex gap-2 text-sm text-slate-500">
+          <span className="w-8">1.</span>
+          <span className="flex-1">...</span>
+          <span className="flex-1">...</span>
         </div>
-      ))}
+      ) : (
+        pairs.map((pair) => (
+          <div key={pair.num} className="flex gap-2 text-sm">
+            <span className="w-8 text-slate-500">{pair.num}.</span>
+            <span className="flex-1 text-slate-300">{pair.white}</span>
+            <span className="flex-1 text-slate-400">{pair.black}</span>
+          </div>
+        ))
+      )}
     </div>
   );
 }
