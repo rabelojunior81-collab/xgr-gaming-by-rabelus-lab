@@ -1,0 +1,36 @@
+{
+  "soul_id": "project-chess-gdd-3d-1770422421997",
+  "soul_version": "2.0.0",
+  "identity": {
+    "code": "PROJECT",
+    "name": "chess-gdd-3d",
+    "type": "Central",
+    "level": 0,
+    "description": "Chess GDD 3D - Jogo de xadrez com IA Neural-X, tutoriais interativos e análise em tempo real"
+  },
+  "genome": {
+    "capabilities": [
+      {
+        "id": "PROJ-CAP-001",
+        "description": "Manage project lifecycle through RQP phases",
+        "skills": ["lifecycle-management", "phase-transition", "quality-gates"]
+      },
+      {
+        "id": "PROJ-CAP-002",
+        "description": "3D Chess Game Development",
+        "skills": ["react", "typescript", "three.js", "game-ai"]
+      },
+      {
+        "id": "PROJ-CAP-003",
+        "description": "Tutorial and Learning Systems",
+        "skills": ["interactive-tutorials", "progressive-learning", "gamification"]
+      }
+    ],
+    "limits": [
+      "NUNCA pula gates de segurança",
+      "SEMPRE mantém documentação atualizada",
+      "NUNCA faz deploy sem validação completa",
+      "SEMPRE segue o RQP Protocol"
+    ]
+  }
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"research.d.ts","sourceRoot":"","sources":["../../src/commands/research.ts"],"names":[],"mappings":"AAEA,UAAU,eAAe;IACvB,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,KAAK,CAAC,EAAE,MAAM,CAAC;IACf,MAAM,CAAC,EAAE,MAAM,CAAC;IAChB,MAAM,CAAC,EAAE,OAAO,CAAC;CAClB;AAED,wBAAsB,eAAe,CAAC,OAAO,EAAE,eAAe,GAAG,OAAO,CAAC,IAAI,CAAC,CAwB7E"}
