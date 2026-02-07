@@ -428,21 +428,65 @@ export function generateKing(style: PieceStyle, lod: LODLevel = 0): THREE.Buffer
   topGeometry.translate(0, config.height * 0.81, 0);
   group.add(new THREE.Mesh(topGeometry));
   
+  // Anel ornamental no topo (antes da cruz)
+  const ringGeometry = new THREE.TorusGeometry(
+    config.baseRadius * 0.4,
+    config.baseRadius * 0.06,
+    8,
+    segments
+  );
+  ringGeometry.rotateX(Math.PI / 2);
+  ringGeometry.translate(0, config.height * 0.88, 0);
+  group.add(new THREE.Mesh(ringGeometry));
+  
   // Cruz no topo
   if (lod === 0) {
-    const crossHeight = config.height * 0.15;
-    const crossWidth = config.baseRadius * 0.08;
-    const crossLength = config.baseRadius * 0.35;
+    const crossHeight = config.height * 0.18;
+    const crossWidth = config.baseRadius * 0.1;
+    const crossLength = config.baseRadius * 0.4;
     
-    // Vertical
-    const vCross = new THREE.BoxGeometry(crossWidth, crossHeight, crossWidth);
-    vCross.translate(0, config.height * 1.0, 0);
+    // Vertical (mais detalhada com cilindro ao invés de box)
+    const vCross = new THREE.CylinderGeometry(crossWidth / 2, crossWidth / 2, crossHeight, 8);
+    vCross.translate(0, config.height * 1.02, 0);
     group.add(new THREE.Mesh(vCross));
     
     // Horizontal
-    const hCross = new THREE.BoxGeometry(crossLength, crossWidth, crossWidth);
-    hCross.translate(0, config.height * 0.98, 0);
+    const hCross = new THREE.CylinderGeometry(crossWidth / 2, crossWidth / 2, crossLength, 8);
+    hCross.rotateZ(Math.PI / 2);
+    hCross.translate(0, config.height * 1.0, 0);
     group.add(new THREE.Mesh(hCross));
+    
+    // Detalhes nas pontas da cruz (4 esferas pequenas)
+    const sphereRadius = crossWidth * 0.8;
+    const positions = [
+      [0, config.height * 1.11, 0],                    // Topo
+      [0, config.height * 0.93, 0],                    // Base
+      [crossLength / 2, config.height * 1.0, 0],       // Esquerda
+      [-crossLength / 2, config.height * 1.0, 0],      // Direita
+    ];
+    
+    positions.forEach((pos) => {
+      const sphere = new THREE.SphereGeometry(sphereRadius, 8, 8);
+      sphere.translate(pos[0], pos[1], pos[2]);
+      group.add(new THREE.Mesh(sphere));
+    });
+  }
+  
+  // Detalhes ornamentais na base (pequenas esferas)
+  if (lod === 0 && config.ornamentDetails > 0.5) {
+    const ornamentCount = 8;
+    for (let i = 0; i < ornamentCount; i++) {
+      const angle = (i / ornamentCount) * Math.PI * 2;
+      const ornament = new THREE.SphereGeometry(
+        config.baseRadius * 0.06,
+        8,
+        8
+      );
+      const x = Math.cos(angle) * config.baseRadius * 0.9;
+      const z = Math.sin(angle) * config.baseRadius * 0.9;
+      ornament.translate(x, config.height * 0.22, z);
+      group.add(new THREE.Mesh(ornament));
+    }
   }
   
   const geometry = mergeGeometries(group);
@@ -496,13 +540,20 @@ export function getCacheStats(): { size: number; keys: string[] } {
 
 /**
  * Helper para merge de geometrias de um grupo
+ * Faz merge real de todas as geometrias aplicando as transformações de cada mesh
  */
 function mergeGeometries(group: THREE.Group): THREE.BufferGeometry {
   const geometries: THREE.BufferGeometry[] = [];
   
   group.traverse((child) => {
     if (child instanceof THREE.Mesh && child.geometry) {
-      geometries.push(child.geometry);
+      // Clonar a geometria para não modificar a original
+      const geom = child.geometry.clone();
+      
+      // Aplicar a matriz de transformação do mesh
+      geom.applyMatrix4(child.matrixWorld);
+      
+      geometries.push(geom);
     }
   });
   
@@ -514,10 +565,62 @@ function mergeGeometries(group: THREE.Group): THREE.BufferGeometry {
     return geometries[0];
   }
   
-  // Merge usando BufferGeometryUtils seria ideal, mas por simplicidade:
-  // Retornamos a primeira geometria (em produção usar BufferGeometryUtils.mergeGeometries)
-  // Para este MVP, vamos retornar uma geometria combinada simples
-  return geometries[0];
+  // Fazer merge manual das geometrias
+  return mergeBufferGeometries(geometries);
+}
+
+/**
+ * Faz merge de múltiplas BufferGeometries em uma só
+ * Implementação própria para evitar dependência de BufferGeometryUtils
+ */
+function mergeBufferGeometries(geometries: THREE.BufferGeometry[]): THREE.BufferGeometry {
+  // Calcular total de vértices
+  let totalVertices = 0;
+  geometries.forEach(geom => {
+    totalVertices += geom.attributes.position.count;
+  });
+  
+  // Criar arrays para os atributos merged
+  const mergedPositions = new Float32Array(totalVertices * 3);
+  const mergedNormals = new Float32Array(totalVertices * 3);
+  const mergedUVs = new Float32Array(totalVertices * 2);
+  
+  let vertexOffset = 0;
+  
+  geometries.forEach(geom => {
+    const positions = geom.attributes.position.array as Float32Array;
+    const normals = geom.attributes.normal?.array as Float32Array;
+    const uvs = geom.attributes.uv?.array as Float32Array;
+    
+    const vertexCount = geom.attributes.position.count;
+    
+    // Copiar posições
+    mergedPositions.set(positions, vertexOffset * 3);
+    
+    // Copiar normais (se existirem)
+    if (normals) {
+      mergedNormals.set(normals, vertexOffset * 3);
+    }
+    
+    // Copiar UVs (se existirem)
+    if (uvs) {
+      mergedUVs.set(uvs, vertexOffset * 2);
+    }
+    
+    vertexOffset += vertexCount;
+  });
+  
+  // Criar geometria merged
+  const mergedGeometry = new THREE.BufferGeometry();
+  mergedGeometry.setAttribute('position', new THREE.BufferAttribute(mergedPositions, 3));
+  mergedGeometry.setAttribute('normal', new THREE.BufferAttribute(mergedNormals, 3));
+  mergedGeometry.setAttribute('uv', new THREE.BufferAttribute(mergedUVs, 2));
+  
+  // Calcular bounding box e sphere
+  mergedGeometry.computeBoundingBox();
+  mergedGeometry.computeBoundingSphere();
+  
+  return mergedGeometry;
 }
 
 export { geometryCache };

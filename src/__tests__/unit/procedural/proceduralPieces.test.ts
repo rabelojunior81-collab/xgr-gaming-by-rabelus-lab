@@ -98,9 +98,8 @@ describe('Procedural Pieces - Geometry Generation', () => {
       const modern = generateKnight('modern', 0);
       const classic = generateKnight('classic', 0);
 
-      // Both should generate valid geometry
-      expect(modern.attributes.position.count).toBeGreaterThan(50);
-      expect(classic.attributes.position.count).toBeGreaterThan(50);
+      // Different styles should produce different vertex counts
+      expect(modern.attributes.position.count).not.toBe(classic.attributes.position.count);
     });
   });
 
@@ -133,9 +132,8 @@ describe('Procedural Pieces - Geometry Generation', () => {
       const king = generateKing('classic', 0);
       const pawn = generatePawn('classic', 0);
 
-      // Both should generate valid geometry with substantial vertex counts
-      expect(king.attributes.position.count).toBeGreaterThan(100);
-      expect(pawn.attributes.position.count).toBeGreaterThan(50);
+      // King should have more vertices due to cross and height
+      expect(king.attributes.position.count).toBeGreaterThan(pawn.attributes.position.count);
     });
   });
 
