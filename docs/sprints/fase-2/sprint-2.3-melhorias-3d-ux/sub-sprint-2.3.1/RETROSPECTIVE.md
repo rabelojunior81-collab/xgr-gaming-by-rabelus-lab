@@ -36,6 +36,37 @@
 
 ## 🎯 Lições Aprendidas
 
+### INCIDENTE 004: Rollback após Tentativa de Evolução Visual Falha
+
+**Data:** 2026-02-07 (após conclusão da sub-sprint)  
+**Severidade:** ALTA  
+**Status:** ✅ RESOLVIDO via Rollback
+
+**O que aconteceu:**
+Tentativa de melhorar visual das peças procedurais resultou em regressão severa:
+- Peças ficaram wireframe/transparentes (não sólidas)
+- Cores do tabuleiro quebradas (laranja em vez de bege/marrom)
+- 3.5 horas de tentativas de correção sem sucesso
+- Visual piorou progressivamente a cada tentativa
+
+**Causa Raiz:**
+Sistema procedural complexo demais para debugging rápido:
+- Cache de geometrias causando conflitos
+- Merge manual de BufferGeometries problemático
+- Materiais sendo sobrescritos em múltiplos pontos
+- Falta de ambiente isolado para testes visuais
+
+**Ação Corretiva:**
+1. ✅ Rollback completo para commit ee90d97 (estado estável)
+2. ✅ Limpeza de arquivos temporários e artefatos
+3. ✅ Restauração do sistema funcional (126 testes passando)
+4. ✅ Documentação no RESTART.md
+
+**Lição Principal:**
+> **"Limite tentativas de correção em 2-3 iterações. Se visual piora, faça rollback imediato para estado estável conhecido."**
+
+---
+
 ### INCIDENTE 003: Bug Crítico em mergeGeometries
 
 **Data:** 2026-02-07  

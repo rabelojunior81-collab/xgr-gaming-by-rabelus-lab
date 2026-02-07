@@ -11,9 +11,9 @@
 | **Última Atualização** | 2026-02-07 |
 | **Versão do Documento** | 1.2.0 |
 | **Versão do Projeto** | 1.3.2-fase2.sprint1.2 |
-| **Status** | ✅ Sprint 2.1 CONCLUÍDA - Planejando Sprint 2.3.1 (Procedural Mesh) |
+| **Status** | ⏸️ PAUSADO - Rollback após tentativa de evolução visual |
 | **Fase Atual** | Fase 2 - Estabilização e Confiabilidade |
-| **Sprint Atual** | Sprint 2.3 - Harden de QA e Governança |
+| **Sprint Atual** | Sprint 2.3 - Harden de QA e Governança (EM PAUSA) |
 
 ---
 
