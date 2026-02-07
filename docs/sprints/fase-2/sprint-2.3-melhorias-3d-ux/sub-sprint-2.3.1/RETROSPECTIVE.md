@@ -49,6 +49,43 @@ Tentativa de melhorar visual das peças procedurais resultou em regressão sever
 - 3.5 horas de tentativas de correção sem sucesso
 - Visual piorou progressivamente a cada tentativa
 
+**ERROS DO AGENTE - Lista Completa:**
+
+1. **Erro #1: Persistência excessiva**
+   - Tentou corrigir o mesmo problema 5+ vezes
+   - Não reconheceu que o sistema estava piorando
+   - Deveria ter feito rollback na 2ª tentativa
+
+2. **Erro #2: Não seguiu a metodologia RQP**
+   - Criou INCIDENT_REPORT_ROLLBACK separado em vez de usar RETROSPECTIVE.md
+   - Ignorou estrutura documental existente
+   - Gerou documentação fora do padrão
+
+3. **Erro #3: Comunicação falha**
+   - Não entendeu o objetivo do usuário (evoluir, não restaurar)
+   - Respondeu com defensividade quando questionado
+   - Gastou tempo explicando em vez de corrigir
+
+4. **Erro #4: Falta de planejamento**
+   - Não criou ambiente isolado para testes visuais
+   - Não fez backup antes das alterações
+   - Modificou múltiplos arquivos críticos simultaneamente
+
+5. **Erro #5: Perda de tempo**
+   - ~3.5 horas de desenvolvimento sem resultado
+   - Estimativa de 50k+ tokens consumidos
+   - Frustração do usuário por falta de progresso
+
+6. **Erro #6: Solução errada para problema errado**
+   - Tentou restaurar ChessPiece3D antigo quando usuário queria evoluir
+   - Não leu corretamente a intenção do usuário
+   - Fez rollback para trás em vez de corrigir para frente
+
+7. **Erro #7: Não respeitou o estado estável**
+   - Sub-Sprint 2.3.1 estava CONCLUÍDA e funcionando
+   - Quebrou o sistema que estava perfeito
+   - Não validou antes de cada alteração
+
 **Causa Raiz:**
 Sistema procedural complexo demais para debugging rápido:
 - Cache de geometrias causando conflitos
@@ -60,10 +97,15 @@ Sistema procedural complexo demais para debugging rápido:
 1. ✅ Rollback completo para commit ee90d97 (estado estável)
 2. ✅ Limpeza de arquivos temporários e artefatos
 3. ✅ Restauração do sistema funcional (126 testes passando)
-4. ✅ Documentação no RESTART.md
+4. ✅ Documentação correta no RETROSPECTIVE.md (não arquivo separado)
+5. ✅ Commit com transparência total sobre erros
 
 **Lição Principal:**
 > **"Limite tentativas de correção em 2-3 iterações. Se visual piora, faça rollback imediato para estado estável conhecido."**
+
+> **"Sempre siga a metodologia documentada. Não crie processos alternativos."**
+
+> **"Leia atentamente o que o usuário quer antes de agir."**
 
 ---
 
