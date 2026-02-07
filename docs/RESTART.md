@@ -8,10 +8,10 @@
 
 | Campo | Valor |
 |-------|-------|
-| **Última Atualização** | 2026-02-06 |
-| **Versão do Documento** | 1.1.0 |
+| **Última Atualização** | 2026-02-07 |
+| **Versão do Documento** | 1.2.0 |
 | **Versão do Projeto** | 1.3.2-fase2.sprint1.2 |
-| **Status** | ✅ Baseline técnico estabilizado (build + typecheck + unit + e2e) |
+| **Status** | ✅ Sprint 2.1 CONCLUÍDA - Planejando Sprint 2.3.1 (Procedural Mesh) |
 | **Fase Atual** | Fase 2 - Estabilização e Confiabilidade |
 | **Sprint Atual** | Sprint 2.3 - Harden de QA e Governança |
 
@@ -120,8 +120,8 @@ chess-gdd-3d/
 | # | Tarefa | Status | Área | Arquivos Relacionados |
 |---|--------|--------|------|----------------------|
 | 1 | Aumentar cobertura E2E para jogadas reais no tabuleiro 3D | 🔄 Pendente | QA/E2E | `e2e/specs/*.spec.ts` |
-| 2 | Tratar warning recorrente de abertura inválida (C92: b4a4) | 🔄 Pendente | Engine/Conteúdo | `src/features/ai/data/openings.ts` |
-| 3 | Consolidar fonte única de status operacional (RQP + docs) | 🔄 Pendente | Governança | `docs/RESTART.md`, `.rqp/state/current-session.json` |
+| 2 | ~~Tratar warning recorrente de abertura inválida (C92: b4a4)~~ | ✅ **CONCLUÍDO** | Engine/Conteúdo | `src/features/ai/data/openings.ts` |
+| 3 | ~~Consolidar fonte única de status operacional (RQP + docs)~~ | ✅ **CONCLUÍDO** | Governança | `docs/RESTART.md`, `.rqp/state/current-session.json` |
 
 ### Média Prioridade
 
@@ -274,7 +274,48 @@ npm run build
 
 ## 🔄 Contexto Imediato da Última Sessão
 
-### Data: 2026-02-04
+### Data: 2026-02-07 (SESSÃO ATUAL)
+
+#### Atividades Realizadas
+1. ✅ **Análise de Imports** - Falso bloqueio resolvido
+   - Verificação completa de 18 arquivos listados no IMPL-001-STATUS-REPORT
+   - Descoberta: imports já estavam corretos, relatório estava desatualizado
+   - Sistema estável: build OK, 0 erros TS, 95/95 testes OK
+
+2. ✅ **Correção do Warning C92: b4a4** - OpeningBook
+   - Arquivo: `src/features/ai/data/openings.ts`
+   - Erro: `b4a4` (movimento inválido) → Correção: `b5a4`
+   - Na Espanhola Fechada, após `a7a6`, o bispo recua de b5 para a4
+
+3. ✅ **Atualização de Timeouts E2E** - Playwright
+   - Arquivo: `playwright.config.ts`
+   - Timeout global: 30s → 60s (carregamento de Stockfish WebWorker)
+   - Action timeout: 15s (interações com IA)
+   - Navigation timeout: 15s
+
+4. ✅ **Atualização de Documentação RQP**
+   - `IMPL-001-STATUS-REPORT.md`: Status BLOCKED → RESOLVED
+   - `current-session.json`: Status ACTIVE, métricas atualizadas
+   - Criado relatório de correções: `.rqp/reports/CORRECOES-2026-02-07.md`
+
+#### Estado dos Arquivos Críticos
+
+| Arquivo | Última Modificação | Status | Alterações |
+|---------|-------------------|--------|------------|
+| `openings.ts` | 2026-02-07 | ✅ Corrigido | Movimento C92 corrigido |
+| `playwright.config.ts` | 2026-02-07 | ✅ Atualizado | Timeouts aumentados |
+| `RESTART.md` | 2026-02-07 | ✅ Atualizado | Este documento |
+| `IMPL-001-STATUS-REPORT.md` | 2026-02-07 | ✅ Atualizado | Bloqueio removido |
+| `current-session.json` | 2026-02-07 | ✅ Atualizado | Status ACTIVE |
+
+#### Decisões Tomadas
+- **Opção A (Correção Manual)** foi escolhida, mas análise revelou que não havia correções necessárias
+- Projeto já estava estável, apenas documentação e ajustes finos aplicados
+- Foco para próxima sessão: verificar testes E2E com novos timeouts
+
+---
+
+### Data: 2026-02-04 (SESSÃO ANTERIOR)
 
 #### Atividades Realizadas
 1. ✅ **Correção de Layout** - Bug #003 resolvido definitivamente
@@ -292,7 +333,7 @@ npm run build
    - Execução de testes: 95 passando
    - Status: Projeto saudável
 
-#### Estado dos Arquivos Críticos
+#### Estado dos Arquivos Críticos (Sessão Anterior)
 
 | Arquivo | Última Modificação | Status |
 |---------|-------------------|--------|
@@ -301,10 +342,33 @@ npm run build
 | `ChessBoard3D.tsx` | 2026-02-03 | ✅ Estável |
 | `DEV_METHODOLOGY_v1.1.0.md` | 2026-02-04 | ✅ Atualizado |
 
-#### Decisões Tomadas
+#### Decisões Tomadas (Sessão Anterior)
 - Manter painel lateral em 320px (não 400px) para melhor proporção
 - Usar `max-h-[calc(100vh-250px)]` como padrão para containers 3D
 - Documentar todas as correções de layout para referência futura
+
+---
+
+## 📁 Arquivos Modificados Recentemente (Última Sessão)
+
+### Sessão: 2026-02-07
+
+| Arquivo | Tipo | Descrição da Alteração |
+|---------|------|------------------------|
+| `src/features/ai/data/openings.ts` | Correção | Movimento C92: `b4a4` → `b5a4` |
+| `playwright.config.ts` | Configuração | Timeouts: 30s → 60s, +action/nav timeouts |
+| `docs/RESTART.md` | Documentação | Atualização completa de contexto |
+| `.rqp/docs/IMPL-001-STATUS-REPORT.md` | Documentação | Status: BLOCKED → RESOLVED |
+| `.rqp/state/current-session.json` | Estado | Status: ACTIVE, notas atualizadas |
+| `.rqp/reports/CORRECOES-2026-02-07.md` | Documentação | Relatório de correções (novo) |
+
+### Sessão: 2026-02-04
+
+| Arquivo | Tipo | Descrição da Alteração |
+|---------|------|------------------------|
+| `src/features/tutorial/components/LessonViewer.tsx` | Correção | max-h adicionado |
+| `src/features/tutorial/components/TutorialPanel.tsx` | Correção | h-screen overflow-hidden |
+| `docs/DEV_METHODOLOGY_v1.1.0.md` | Documentação | Seções 11 e 12 adicionadas |
 
 ---
 
@@ -399,6 +463,6 @@ npm run test:coverage && start coverage/index.html
 
 ---
 
-**Última Atualização:** 2026-02-06  
-**Versão:** 1.1.0  
-**Status:** ✅ Pronto para Continuidade
+**Última Atualização:** 2026-02-07  
+**Versão:** 1.2.0  
+**Status:** ✅ Estável - Correções Aplicadas - Pronto para Retomada

@@ -563,7 +563,7 @@ export const OPENINGS: OpeningData[] = [
     eco: 'C92',
     name: 'Espanhola - Fechada (9.h3)',
     category: 'open',
-    moves: ['e2e4', 'e7e5', 'g1f3', 'b8c6', 'f1b5', 'a7a6', 'b4a4', 'g8f6', 'e1g1', 'b7b5', 'a4b3', 'f8e7', 'c2c3', 'd7d6', 'h2h3'],
+    moves: ['e2e4', 'e7e5', 'g1f3', 'b8c6', 'f1b5', 'a7a6', 'b5a4', 'g8f6', 'e1g1', 'b7b5', 'a4b3', 'f8e7', 'c2c3', 'd7d6', 'h2h3'],
     weight: 7
   },
 

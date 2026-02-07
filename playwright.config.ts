@@ -7,11 +7,16 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
   reporter: "html",
+  // Aumentado timeout para testes que carregam IA (Stockfish WebWorker)
+  timeout: 60000,
   use: {
     baseURL: "http://localhost:5173",
     trace: "on-first-retry",
     screenshot: "only-on-failure",
     video: "retain-on-failure",
+    // Aumentado action timeout para interações que podem demorar
+    actionTimeout: 15000,
+    navigationTimeout: 15000,
   },
   projects: [
     {
