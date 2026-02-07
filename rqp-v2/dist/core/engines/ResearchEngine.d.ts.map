@@ -1,1 +1,0 @@
-{"version":3,"file":"ResearchEngine.d.ts","sourceRoot":"","sources":["../../../src/core/engines/ResearchEngine.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,aAAa,EAAE,cAAc,EAAkB,MAAM,sBAAsB,CAAC;AAErF,qBAAa,cAAc;IACnB,eAAe,CAAC,KAAK,EAAE,aAAa,GAAG,OAAO,CAAC,cAAc,CAAC;YAatD,MAAM;IAYpB,OAAO,CAAC,OAAO;IAIf,OAAO,CAAC,uBAAuB;CAGhC"}

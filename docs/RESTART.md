@@ -121,7 +121,7 @@ chess-gdd-3d/
 |---|--------|--------|------|----------------------|
 | 1 | Aumentar cobertura E2E para jogadas reais no tabuleiro 3D | 🔄 Pendente | QA/E2E | `e2e/specs/*.spec.ts` |
 | 2 | ~~Tratar warning recorrente de abertura inválida (C92: b4a4)~~ | ✅ **CONCLUÍDO** | Engine/Conteúdo | `src/features/ai/data/openings.ts` |
-| 3 | ~~Consolidar fonte única de status operacional (RQP + docs)~~ | ✅ **CONCLUÍDO** | Governança | `docs/RESTART.md`, `.rqp/state/current-session.json` |
+| 3 | ~~Consolidar fonte única de status operacional~~ | ✅ **CONCLUÍDO** | Governança | `docs/RESTART.md` |
 
 ### Média Prioridade
 
@@ -293,10 +293,9 @@ npm run build
    - Action timeout: 15s (interações com IA)
    - Navigation timeout: 15s
 
-4. ✅ **Atualização de Documentação RQP**
-   - `IMPL-001-STATUS-REPORT.md`: Status BLOCKED → RESOLVED
-   - `current-session.json`: Status ACTIVE, métricas atualizadas
-   - Criado relatório de correções: `.rqp/reports/CORRECOES-2026-02-07.md`
+4. ✅ **Documentação Atualizada**
+   - `RESTART.md`: Atualização completa de contexto
+   - `docs/`: Documentação sincronizada
 
 #### Estado dos Arquivos Críticos
 
@@ -305,8 +304,6 @@ npm run build
 | `openings.ts` | 2026-02-07 | ✅ Corrigido | Movimento C92 corrigido |
 | `playwright.config.ts` | 2026-02-07 | ✅ Atualizado | Timeouts aumentados |
 | `RESTART.md` | 2026-02-07 | ✅ Atualizado | Este documento |
-| `IMPL-001-STATUS-REPORT.md` | 2026-02-07 | ✅ Atualizado | Bloqueio removido |
-| `current-session.json` | 2026-02-07 | ✅ Atualizado | Status ACTIVE |
 
 #### Decisões Tomadas
 - **Opção A (Correção Manual)** foi escolhida, mas análise revelou que não havia correções necessárias
@@ -358,9 +355,6 @@ npm run build
 | `src/features/ai/data/openings.ts` | Correção | Movimento C92: `b4a4` → `b5a4` |
 | `playwright.config.ts` | Configuração | Timeouts: 30s → 60s, +action/nav timeouts |
 | `docs/RESTART.md` | Documentação | Atualização completa de contexto |
-| `.rqp/docs/IMPL-001-STATUS-REPORT.md` | Documentação | Status: BLOCKED → RESOLVED |
-| `.rqp/state/current-session.json` | Estado | Status: ACTIVE, notas atualizadas |
-| `.rqp/reports/CORRECOES-2026-02-07.md` | Documentação | Relatório de correções (novo) |
 
 ### Sessão: 2026-02-04
 

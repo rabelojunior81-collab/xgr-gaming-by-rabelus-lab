@@ -1,1 +1,0 @@
-{"version":3,"file":"soul.d.ts","sourceRoot":"","sources":["../../src/commands/soul.ts"],"names":[],"mappings":"AAEA,UAAU,WAAW;IACnB,OAAO,EAAE,MAAM,CAAC;IAChB,IAAI,CAAC,EAAE,MAAM,CAAC;IACd,MAAM,CAAC,EAAE,MAAM,CAAC;CACjB;AAED,wBAAsB,WAAW,CAAC,OAAO,EAAE,MAAM,EAAE,OAAO,EAAE,WAAW,GAAG,OAAO,CAAC,IAAI,CAAC,CA8BtF"}
