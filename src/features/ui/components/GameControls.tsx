@@ -177,11 +177,11 @@ export function GameControls() {
       </div>
       
       {/* Move History */}
-      <div className="flex-1 overflow-hidden rounded-xl bg-slate-800/50" data-testid="move-history-panel">
+      <div className="min-h-[200px] rounded-xl bg-slate-800/50" data-testid="move-history-panel">
         <div className="border-b border-slate-700 p-3">
           <h3 className="text-sm font-medium text-slate-300">Histórico de Lances</h3>
         </div>
-        <div className="h-48 overflow-y-auto p-2" data-testid="move-history-list">
+        <div className="max-h-48 overflow-y-auto p-2" data-testid="move-history-list">
           <MoveHistory />
         </div>
       </div>

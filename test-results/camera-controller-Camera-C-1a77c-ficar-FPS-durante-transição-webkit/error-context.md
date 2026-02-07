@@ -57,10 +57,10 @@
     - button "Análise" [ref=e92]:
       - img [ref=e93]
       - text: Análise
-  - generic:
-    - heading "Histórico de Lances" [level=3] [ref=e96]
-    - generic [ref=e99]:
-      - generic [ref=e100]: "1."
-      - generic [ref=e101]: ...
+  - generic [ref=e95]:
+    - heading "Histórico de Lances" [level=3] [ref=e97]
+    - generic [ref=e100]:
+      - generic [ref=e101]: "1."
       - generic [ref=e102]: ...
+      - generic [ref=e103]: ...
 ```
