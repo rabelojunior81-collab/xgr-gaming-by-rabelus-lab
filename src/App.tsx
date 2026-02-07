@@ -10,7 +10,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 
 function GameView() {
   return (
-    <div className="flex h-screen bg-slate-950">
+    <div className="flex h-screen bg-slate-950" data-testid="game-screen">
       {/* 3D Board Area */}
       <div className="relative flex-1" data-testid="game-board-area">
         <ChessBoard3D />

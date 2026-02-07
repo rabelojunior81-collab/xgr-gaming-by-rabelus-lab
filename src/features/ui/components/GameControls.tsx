@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useGameStore } from '@game/store/gameStore';
 import { EmotionalIndicator } from '@ai/components/EmotionalIndicator';
+import { CameraModeSelector } from './CameraModeSelector';
 import { useState } from 'react';
 
 export function GameControls() {
@@ -114,6 +115,11 @@ export function GameControls() {
           personality={aiPersonality}
           compact={true}
         />
+      </div>
+
+      {/* Camera Mode Selector */}
+      <div className="mb-4">
+        <CameraModeSelector />
       </div>
 
       {/* Game Status */}

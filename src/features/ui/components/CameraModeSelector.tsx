@@ -27,7 +27,7 @@ export const CameraModeSelector: React.FC = () => {
   const { cameraMode, setCameraMode } = useGameStore();
   
   return (
-    <div className="space-y-2">
+    <div className="space-y-2" data-testid="camera-mode-selector">
       <div className="flex items-center gap-2 mb-3">
         <Camera className="w-4 h-4 text-gray-400" />
         <span className="text-sm font-medium text-gray-300">Modo de Câmera</span>

@@ -1,0 +1,61 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e11]:
+  - generic [ref=e12]:
+    - button "Menu" [ref=e13]:
+      - img [ref=e14]
+      - text: Menu
+    - generic [ref=e16]:
+      - img [ref=e17]
+      - text: Clube
+  - generic [ref=e26]:
+    - generic [ref=e27]:
+      - generic [ref=e29]: ♚
+      - generic [ref=e30]:
+        - paragraph [ref=e31]: Black
+        - paragraph [ref=e32]: "Elo: 800"
+    - generic [ref=e33]:
+      - generic [ref=e35]: ♔
+      - generic [ref=e36]:
+        - paragraph [ref=e37]: White
+        - paragraph [ref=e38]: "Elo: 800"
+  - generic [ref=e40]:
+    - 'img "Estado: Neutro" [ref=e41]': 😐
+    - generic [ref=e43]: Neutro
+  - generic [ref=e47]:
+    - generic [ref=e48]:
+      - img [ref=e49]
+      - generic [ref=e52]: Modo de Câmera
+    - generic [ref=e53]:
+      - button "Mesa Visão de cima fixa - ideal para tablets" [ref=e54]:
+        - img [ref=e56]
+        - generic [ref=e58]:
+          - generic [ref=e59]: Mesa
+          - generic [ref=e60]: Visão de cima fixa - ideal para tablets
+      - button "Duelo Câmera alterna entre jogadores a cada lance" [ref=e61]:
+        - img [ref=e63]
+        - generic [ref=e68]:
+          - generic [ref=e69]: Duelo
+          - generic [ref=e70]: Câmera alterna entre jogadores a cada lance
+      - button "Fixa Posição estática tradicional" [ref=e73]:
+        - img [ref=e75]
+        - generic [ref=e79]:
+          - generic [ref=e80]: Fixa
+          - generic [ref=e81]: Posição estática tradicional
+    - paragraph [ref=e83]: 💡 No modo Duelo, a câmera gira automaticamente a cada lance para mostrar a perspectiva do jogador ativo.
+  - generic [ref=e84]:
+    - button "Reiniciar" [ref=e85]:
+      - img [ref=e86]
+      - text: Reiniciar
+    - button "Desfazer" [ref=e89]:
+      - img [ref=e90]
+      - text: Desfazer
+    - button "Dicas" [ref=e92]:
+      - img [ref=e93]
+      - text: Dicas
+    - button "Análise" [ref=e97]:
+      - img [ref=e98]
+      - text: Análise
+  - heading "Histórico de Lances" [level=3] [ref=e104]
+```
