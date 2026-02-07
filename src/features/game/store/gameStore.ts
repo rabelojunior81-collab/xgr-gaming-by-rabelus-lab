@@ -16,6 +16,9 @@ import type {
 } from '@shared/types/chess';
 import { ChessEngine } from '@game/engine/chessEngine';
 
+// Camera Types
+export type CameraMode = 'tabletop' | 'duel' | 'fixed';
+
 interface GameState {
   // Game Engine (not persisted - will be recreated)
   engine: ChessEngine;
@@ -51,6 +54,10 @@ interface GameState {
   // Emotional State (not persisted)
   emotionalProfile: EmotionalProfile;
   
+  // Camera Settings (persisted)
+  cameraMode: CameraMode;
+  isCameraTransitioning: boolean;
+  
   // Persisted Stats
   gameHistory: GameRecord[];
   playerStats: PlayerStats;
@@ -79,6 +86,10 @@ interface GameState {
   setEmotionalProfile: (profile: EmotionalProfile) => void;
   addGameToHistory: (game: GameRecord) => void;
   updatePlayerStats: (result: 'win' | 'loss' | 'draw') => void;
+  
+  // Camera Actions
+  setCameraMode: (mode: CameraMode) => void;
+  setCameraTransitioning: (isTransitioning: boolean) => void;
 }
 
 const defaultAIPersonality: AIPersonality = {
@@ -146,6 +157,9 @@ export const useGameStore = create<GameState>()(
         aggressionLevel: 0.5,
         message: 'Preparado para a partida'
       },
+      
+      cameraMode: 'duel',
+      isCameraTransitioning: false,
       
       gameHistory: [],
       playerStats: { ...defaultPlayerStats },
@@ -298,7 +312,12 @@ export const useGameStore = create<GameState>()(
         }
         
         return { playerStats: newStats };
-      })
+      }),
+      
+      // Camera Actions
+      setCameraMode: (mode) => set({ cameraMode: mode }),
+      
+      setCameraTransitioning: (isTransitioning) => set({ isCameraTransitioning: isTransitioning })
     }),
     {
       name: 'chess-game-storage',
@@ -311,7 +330,8 @@ export const useGameStore = create<GameState>()(
         whitePlayer: state.whitePlayer,
         blackPlayer: state.blackPlayer,
         gameHistory: state.gameHistory,
-        playerStats: state.playerStats
+        playerStats: state.playerStats,
+        cameraMode: state.cameraMode
       })
     }
   )

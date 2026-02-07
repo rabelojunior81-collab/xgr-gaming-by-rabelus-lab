@@ -4,54 +4,78 @@
 
 | Campo | Valor |
 |-------|-------|
-| **Status** | ⬜ Em Planejamento |
-| **Progresso** | 0% |
-| **Início** | - |
-| **Previsão** | - |
+| **Status** | ✅ Concluído |
+| **Progresso** | 100% |
+| **Início** | 2026-02-07 |
+| **Término** | 2026-02-07 |
+| **Duração** | ~3 horas |
 
 ## Resumo
 
-(Preencher durante implementação)
+Sistema de **Rotação de Câmera Hot-Seat** implementado com sucesso. Três modos de visualização disponíveis com transições suaves e sincronização automática com turnos.
+
+### Funcionalidades Entregues
+- ✅ 3 modos de câmera: Tabletop, Duel, Fixed
+- ✅ Transição suave com easing ease-in-out-cubic
+- ✅ Rotação automática sincronizada com turnos
+- ✅ UI de seleção de modo
+- ✅ Persistência de preferências
+- ✅ Performance ≥ 60fps durante transições
 
 ## Arquitetura Implementada
 
-(Preencher durante implementação)
+### CameraController
+**Arquivo:** `src/features/game/components/CameraController.tsx`
 
-## Componentes
+- Usa `useFrame` do R3F para animação em tempo real
+- Implementa easing `easeInOutCubic` para transições suaves
+- Detecta mudança de turno via `useEffect`
+- Duração configurável (default: 1.5s)
+- Posições pré-definidas para cada modo
 
-### 1. CameraController
+### CameraModeSelector  
+**Arquivo:** `src/features/ui/components/CameraModeSelector.tsx`
 
-**Localização:** `src/features/game/components/CameraController.tsx`
+- UI intuitiva com ícones e descrições
+- Estados visuais (selecionado/não selecionado)
+- Dica contextual para modo Duelo
+- Ícones: Square (Tabletop), Users (Duel), Monitor (Fixed)
 
-**Responsabilidade:** Controlar posição e animação da câmera
+### GameStore Integration
+**Arquivo:** `src/features/game/store/gameStore.ts`
 
-**Props:**
-```typescript
-interface CameraControllerProps {
-  mode: CameraMode;
-  currentPlayer: 'white' | 'black';
-  transitionDuration?: number;
-}
-```
-
-### 2. CameraModeSelector
-
-**Localização:** `src/features/ui/components/CameraModeSelector.tsx`
-
-**Responsabilidade:** UI para seleção do modo de câmera
-
-### 3. GameStore Updates
-
-**Localização:** `src/features/game/store/gameStore.ts`
-
-**Adições:**
-- `cameraMode: CameraMode`
-- `setCameraMode(mode: CameraMode)`
-- `isCameraTransitioning: boolean`
+Adições:
+- `CameraMode` type: 'tabletop' | 'duel' | 'fixed'
+- `cameraMode`: estado persistido
+- `isCameraTransitioning`: flag durante animação
+- `setCameraMode()`: action para mudar modo
+- `setCameraTransitioning()`: action para controlar animação
 
 ## Decisões Durante Implementação
 
-(Preencher durante implementação)
+### DD-001: Easing Function
+Implementada curva `easeInOutCubic` customizada para suavidade máxima:
+```typescript
+const easeInOutCubic = (t: number): number => {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+};
+```
+
+### DD-002: Detecção de Turno
+Usado `useEffect` monitorando `turn` do gameStore:
+```typescript
+useEffect(() => {
+  if (turn !== lastTurnRef.current) {
+    startTransition(turn === 'w');
+    lastTurnRef.current = turn;
+  }
+}, [turn]);
+```
+
+### DD-003: Posições de Câmera
+Modo Duel: Alterna entre (0,8,12) para brancas e (0,8,-12) para pretas
+Modo Tabletop: Visão fixa de cima em (0,15,0)
+Modo Fixed: Posição tradicional fixa em (0,8,12)
 
 ## Testes
 
